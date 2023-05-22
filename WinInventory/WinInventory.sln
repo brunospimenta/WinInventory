@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinInventory", "WinInventory\WinInventory.csproj", "{7A50FB21-5306-4A2F-8643-4C77086D98AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7A50FB21-5306-4A2F-8643-4C77086D98AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A50FB21-5306-4A2F-8643-4C77086D98AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A50FB21-5306-4A2F-8643-4C77086D98AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A50FB21-5306-4A2F-8643-4C77086D98AD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E30DA6FB-F11E-4989-BCD7-8E4E7736DA56}
+	EndGlobalSection
+EndGlobal
