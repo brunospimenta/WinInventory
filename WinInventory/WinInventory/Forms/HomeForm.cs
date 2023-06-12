@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Security;
@@ -26,7 +27,6 @@ namespace WinInventory.Forms
         string user;
         double geralExitTimer;
         double individualExitTimer;
-        bool timerReset = true;
         #endregion
 
         #region Models var
@@ -76,20 +76,31 @@ namespace WinInventory.Forms
             return pwd;
         }
 
+        private string GetLocale()
+        {
+            CultureInfo ci = CultureInfo.CurrentUICulture;
+            var language = ci.Name;
+
+            return language;
+        }
+
         #endregion
 
         #region buttons
         private void BtnGeral_Click(object sender, EventArgs e)
         {
-
-            if (!timerReset)
+            try
             {
                 Stopwatch timer = new Stopwatch();
                 timer.Start();
                 geral.DeviceId = ThreadCmd.comando("wmic os get serialnumber", "Device_ID", user, pwd);
+
                 timer.Stop();
 
-                individualExitTimer = timer.ElapsedMilliseconds / 1000;
+                geralExitTimer = timer.ElapsedMilliseconds / 1000;
+            } catch (Exception ex) 
+            {
+                MessageBox.Show("Error Creating Geral relatory" + ex.Message);
             }
             
         }
@@ -103,6 +114,7 @@ namespace WinInventory.Forms
                 apps.AllApplications = ThreadCmd.comando("wmic product get name, version, installDate", "Applications", user, pwd);
                 timer.Stop();
 
+                individualExitTimer = 0;
                 individualExitTimer = timer.ElapsedMilliseconds / 1000;
             } catch (Exception ex )
             {
@@ -123,6 +135,7 @@ namespace WinInventory.Forms
                 devices.Others = ThreadCmd.comando("pnputil /enum-devices | findstr USB", "USB_Devices", user, pwd);
                 timer.Stop();
 
+                individualExitTimer = 0;
                 individualExitTimer = timer.ElapsedMilliseconds / 1000;
             } catch (Exception ex)
             {
@@ -150,7 +163,6 @@ namespace WinInventory.Forms
             
 
         }
-
         private void BtnHardware_Click(object sender, EventArgs e)
         {
             try
@@ -158,18 +170,28 @@ namespace WinInventory.Forms
                 Stopwatch timer = new Stopwatch();
                 timer.Start();
 
-                hardware.ManufacturerAndModel = ThreadCmd.comando("wmic computersystem get model, manufacturerd", "ManufacturerAndModel", user, pwd);
-                hardware.Display = ThreadCmd.comando("wmic desktopmonitor get Name,MonitorType,MonitorManufacturer", "Sound_Devices", user, pwd);
-                hardware.GraphicCard = ThreadCmd.comando("wmic path win32_VideoController get name", "Sound_Devices", user, pwd);
-                hardware.HardDisk = ThreadCmd.comando("wmic diskdrive get model, size", "Sound_Devices", user, pwd);
+                if(GetLocale() == "en-US")
+                {
+                    hardware.ProductID = ThreadCmd.comando("systeminfo | findstr \"Product ID\"", "Product_ID", user, pwd);
+                    hardware.mRam = ThreadCmd.comando("systeminfo | find \"Total Physical Memory\"", "mRam", user, pwd);
+                }
+                else
+                {
+                    hardware.ProductID = ThreadCmd.comando("systeminfo | findstr \"Identificação do produto\"", "Product_ID", user, pwd);
+                    hardware.mRam = ThreadCmd.comando("systeminfo | find \"Memória física total\"", "mRam", user, pwd);
+                }
+                hardware.ManufacturerAndModel = ThreadCmd.comando("wmic computersystem get manufacturer", "ManufacturerAndModel", user, pwd);
+                hardware.Display = ThreadCmd.comando("wmic desktopmonitor get Name,MonitorType,MonitorManufacturer", "Displays", user, pwd);
+                hardware.GraphicCard = ThreadCmd.comando("wmic path win32_VideoController get name", "GraphicCard", user, pwd);
+                hardware.HardDisk = ThreadCmd.comando("wmic diskdrive get model, size", "HD", user, pwd);
                 hardware.MotherBoard = ThreadCmd.comando("wmic baseboard get product, Manufacturer", "MotherBoard", user, pwd);
-                hardware.Processor = ThreadCmd.comando("wmic cpu get name", "Sound_Devices", user, pwd);
-                hardware.ProductID = ThreadCmd.comando("systeminfo | findstr \"Product ID\"", "Sound_Devices", user, pwd);
-                hardware.mRam = ThreadCmd.comando("systeminfo | find \"Total Physical Memory\"", "Sound_Devices", user, pwd);
+                hardware.Processor = ThreadCmd.comando("wmic cpu get name", "Processor", user, pwd);
+                
 
                 timer.Stop();
 
-                individualExitTimer += timer.ElapsedMilliseconds / 1000;
+                individualExitTimer = 0;
+                individualExitTimer = timer.ElapsedMilliseconds / 1000;
             } catch (Exception ex)
             {
                 MessageBox.Show("Error creating Hardware relatory" + ex.Message);
@@ -181,20 +203,32 @@ namespace WinInventory.Forms
         {
             try
             {
+                if (GetLocale() == "en-US")
+                {
+                    systemInfo.Domain = ThreadCmd.comando("systeminfo | find \"Domain\"", "Domain", user, pwd);
+                    systemInfo.IP = ThreadCmd.comando("ipconfig | find \"IPv4 Address\"", "IP", user, pwd);
+                    systemInfo.OS = ThreadCmd.comando("systeminfo | find \"OS Name\"", "OS", user, pwd);
+                    systemInfo.InstallDate = ThreadCmd.comando("systeminfo | find \"Original Install Date\"", "InstallDate", user, pwd);
+                }
+                else
+                {
+                    systemInfo.Domain = ThreadCmd.comando("systeminfo | find \"Domínio\"", "Domain", user, pwd);
+                    systemInfo.IP = ThreadCmd.comando("ipconfig | find \"Endereço IPv4\"", "IP", user, pwd);
+                    systemInfo.OS = ThreadCmd.comando("systeminfo | find \"Nome do sistema operacional\"", "OS", user, pwd);
+                    systemInfo.InstallDate = ThreadCmd.comando("systeminfo | find \"Data de instalação original\"", "InstallDate", user, pwd);
+                }
+
                 Stopwatch timer = new Stopwatch();
                 timer.Start();
-
-                systemInfo.Domain = ThreadCmd.comando("systeminfo | find \"Domain\"", "Sound_Devices", user, pwd);
-                systemInfo.Hostname = ThreadCmd.comando("hostname", "Sound_Devices", user, pwd);
-                systemInfo.IP = ThreadCmd.comando("ipconfig | find \"IPv4 Address\"", "Sound_Devices", user, pwd);
-                systemInfo.LastUserName = ThreadCmd.comando("whoami", "Sound_Devices", user, pwd);
-                systemInfo.OS = ThreadCmd.comando("systeminfo | find \"OS Name\"", "Sound_Devices", user, pwd);
-                systemInfo.InstallDate = ThreadCmd.comando("systeminfo | find \"Original Install Date\"", "Sound_Devices", user, pwd);
+                
+                systemInfo.Hostname = ThreadCmd.comando("hostname", "Hostname", user, pwd);
+                systemInfo.LastUserName = ThreadCmd.comando("whoami", "LastUser", user, pwd);
                 systemInfo.FirstSync = DateTime.Now;
 
                 timer.Stop();
 
-                individualExitTimer += timer.ElapsedMilliseconds / 1000;
+                individualExitTimer = 0;
+                individualExitTimer = timer.ElapsedMilliseconds / 1000;
             } catch (Exception ex)
             {
                 MessageBox.Show("Error creating System relatory" + ex.Message);
@@ -204,7 +238,7 @@ namespace WinInventory.Forms
 
         private void BtnTeste_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(individualExitTimer.ToString());
+            MessageBox.Show(GetLocale());
         }
         #endregion
     }
