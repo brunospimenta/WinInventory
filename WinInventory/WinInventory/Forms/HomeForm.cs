@@ -93,6 +93,7 @@ namespace WinInventory.Forms
             {
                 Stopwatch timer = new Stopwatch();
                 timer.Start();
+
                 geral.DeviceId = ThreadCmd.comando("wmic os get serialnumber", "Device_ID", user, pwd);
 
                 timer.Stop();
@@ -111,7 +112,14 @@ namespace WinInventory.Forms
             {
                 Stopwatch timer = new Stopwatch();
                 timer.Start();
-                apps.AllApplications = ThreadCmd.comando("wmic product get name, version, installDate", "Applications", user, pwd);
+
+                #region (Applications) escrita dos txts e leitura/vinculo ao Model
+
+                ThreadCmd.comando("wmic product get name, version, installDate", "Applications", user, pwd);
+                apps.AllApplications = Reader.InfoReader("Applications");
+
+                #endregion
+
                 timer.Stop();
 
                 individualExitTimer = 0;
@@ -130,11 +138,19 @@ namespace WinInventory.Forms
             {
                 Stopwatch timer = new Stopwatch();
                 timer.Start();
-                devices.AudioDevice = ThreadCmd.comando("wmic path win32_SoundDevice get name", "Sound_Devices", user, pwd);
-                devices.NetworkAdapter = ThreadCmd.comando("wmic nic get AdapterType, Name, Installed", "Adapters", user, pwd);
-                devices.Others = ThreadCmd.comando("pnputil /enum-devices | findstr USB", "USB_Devices", user, pwd);
-                timer.Stop();
 
+                #region (Devices) escrita dos txts e leitura/vinculo ao Model
+
+                ThreadCmd.comando("wmic path win32_SoundDevice get name", "Sound_Devices", user, pwd);
+                devices.AudioDevice = Reader.InfoReader("Sound_Devices");
+                ThreadCmd.comando("wmic nic get AdapterType, Name, Installed", "Adapters", user, pwd);
+                devices.NetworkAdapter = Reader.InfoReader("Adapters");
+                ThreadCmd.comando("pnputil /enum-devices | findstr USB", "USB_Devices", user, pwd);
+                devices.Others = Reader.InfoReader("USB_Devices");
+
+                #endregion
+
+                timer.Stop();
                 individualExitTimer = 0;
                 individualExitTimer = timer.ElapsedMilliseconds / 1000;
             } catch (Exception ex)
@@ -149,11 +165,19 @@ namespace WinInventory.Forms
             {
                 Stopwatch timer = new Stopwatch();
                 timer.Start();
-                drivers.AntiVirus = ThreadCmd.comando("wmic /Node:localhost/Namespace:\\\\root\\SecurityCenter2 Path AntiVirusProduct Get displayName",
+
+                #region (Drivers) escrita dos txts e leitura/vinculo ao Model
+
+                ThreadCmd.comando("wmic /Node:localhost/Namespace:\\\\root\\SecurityCenter2 Path AntiVirusProduct Get displayName",
                     "AntiVirus", user, pwd);
-                drivers.Firewall = ThreadCmd.comando("netsh advfirewall show allprofiles", "Firewall", user, pwd);
-                drivers.Proxy = ThreadCmd.comando("netsh winhttp show proxy", "Proxy", user, pwd);
+                drivers.AntiVirus = Reader.InfoReader("AntiVirus");
+                ThreadCmd.comando("netsh advfirewall show allprofiles", "Firewall", user, pwd);
+                drivers.Firewall = Reader.InfoReader("Firewall");
+                ThreadCmd.comando("netsh winhttp show proxy", "Proxy", user, pwd);
+                drivers.Proxy = Reader.InfoReader("Proxy");
                 timer.Stop();
+
+                #endregion
 
                 individualExitTimer = timer.ElapsedMilliseconds / 1000;
             } catch (Exception ex ) 
@@ -170,23 +194,36 @@ namespace WinInventory.Forms
                 Stopwatch timer = new Stopwatch();
                 timer.Start();
 
-                if(GetLocale() == "en-US")
+                #region (Hardware) escrita dos txts e leitura/vinculo ao Model;
+
+                if (GetLocale() == "en-US")
                 {
-                    hardware.ProductID = ThreadCmd.comando("systeminfo | findstr \"Product ID\"", "Product_ID", user, pwd);
-                    hardware.mRam = ThreadCmd.comando("systeminfo | find \"Total Physical Memory\"", "mRam", user, pwd);
+                    ThreadCmd.comando("systeminfo | findstr \"Product ID\"", "Product_ID", user, pwd);
+                    ThreadCmd.comando("systeminfo | find \"Total Physical Memory\"", "mRam", user, pwd);
                 }
                 else
                 {
-                    hardware.ProductID = ThreadCmd.comando("systeminfo | findstr \"Identificação do produto\"", "Product_ID", user, pwd);
-                    hardware.mRam = ThreadCmd.comando("systeminfo | find \"Memória física total\"", "mRam", user, pwd);
+                    ThreadCmd.comando("systeminfo | findstr \"Identificação do produto\"", "Product_ID", user, pwd);
+                    ThreadCmd.comando("systeminfo | find \"Memória física total\"", "mRam", user, pwd);
                 }
-                hardware.ManufacturerAndModel = ThreadCmd.comando("wmic computersystem get manufacturer", "ManufacturerAndModel", user, pwd);
-                hardware.Display = ThreadCmd.comando("wmic desktopmonitor get Name,MonitorType,MonitorManufacturer", "Displays", user, pwd);
-                hardware.GraphicCard = ThreadCmd.comando("wmic path win32_VideoController get name", "GraphicCard", user, pwd);
-                hardware.HardDisk = ThreadCmd.comando("wmic diskdrive get model, size", "HD", user, pwd);
-                hardware.MotherBoard = ThreadCmd.comando("wmic baseboard get product, Manufacturer", "MotherBoard", user, pwd);
-                hardware.Processor = ThreadCmd.comando("wmic cpu get name", "Processor", user, pwd);
-                
+
+                hardware.ProductID = Reader.InfoReader("Product_ID");
+                hardware.mRam = Reader.InfoReader("mRam");
+
+                ThreadCmd.comando("wmic computersystem get manufacturer", "Manufacturer", user, pwd);
+                hardware.ManufacturerAndModel = Reader.InfoReader("Manufacturer");
+                ThreadCmd.comando("wmic desktopmonitor get Name,MonitorType,MonitorManufacturer", "Displays", user, pwd);
+                hardware.Display = Reader.InfoReader("Displays");
+                ThreadCmd.comando("wmic path win32_VideoController get name", "GraphicCard", user, pwd);
+                hardware.GraphicCard = Reader.InfoReader("GraphicCard");
+                ThreadCmd.comando("wmic diskdrive get model, size", "HD", user, pwd);
+                hardware.HardDisk = Reader.InfoReader("HD");
+                ThreadCmd.comando("wmic baseboard get product", "MotherBoard", user, pwd);
+                hardware.MotherBoard = Reader.InfoReader("MotherBoard");
+                ThreadCmd.comando("wmic cpu get name", "Processor", user, pwd);
+                hardware.Processor = Reader.InfoReader("Processor");
+
+                #endregion
 
                 timer.Stop();
 
@@ -203,27 +240,39 @@ namespace WinInventory.Forms
         {
             try
             {
-                if (GetLocale() == "en-US")
-                {
-                    systemInfo.Domain = ThreadCmd.comando("systeminfo | find \"Domain\"", "Domain", user, pwd);
-                    systemInfo.IP = ThreadCmd.comando("ipconfig | find \"IPv4 Address\"", "IP", user, pwd);
-                    systemInfo.OS = ThreadCmd.comando("systeminfo | find \"OS Name\"", "OS", user, pwd);
-                    systemInfo.InstallDate = ThreadCmd.comando("systeminfo | find \"Original Install Date\"", "InstallDate", user, pwd);
-                }
-                else
-                {
-                    systemInfo.Domain = ThreadCmd.comando("systeminfo | find \"Domínio\"", "Domain", user, pwd);
-                    systemInfo.IP = ThreadCmd.comando("ipconfig | find \"Endereço IPv4\"", "IP", user, pwd);
-                    systemInfo.OS = ThreadCmd.comando("systeminfo | find \"Nome do sistema operacional\"", "OS", user, pwd);
-                    systemInfo.InstallDate = ThreadCmd.comando("systeminfo | find \"Data de instalação original\"", "InstallDate", user, pwd);
-                }
 
                 Stopwatch timer = new Stopwatch();
                 timer.Start();
-                
-                systemInfo.Hostname = ThreadCmd.comando("hostname", "Hostname", user, pwd);
-                systemInfo.LastUserName = ThreadCmd.comando("whoami", "LastUser", user, pwd);
+
+                #region (SystemInfo) escrita dos txts e leitura/vinculo ao Model;
+
+                if (GetLocale() == "en-US")
+                {
+                    ThreadCmd.comando("systeminfo | find \"Domain\"", "Domain", user, pwd);
+                    ThreadCmd.comando("ipconfig | find \"IPv4 Address\"", "IP", user, pwd);
+                    ThreadCmd.comando("systeminfo | find \"OS Name\"", "OS", user, pwd);
+                    ThreadCmd.comando("systeminfo | find \"Original Install Date\"", "InstallDate", user, pwd);
+                }
+                else
+                {
+                    ThreadCmd.comando("systeminfo | find \"Domínio\"", "Domain", user, pwd);
+                    ThreadCmd.comando("ipconfig | find \"Endereço IPv4\"", "IP", user, pwd);
+                    ThreadCmd.comando("systeminfo | find \"Nome do sistema operacional\"", "OS", user, pwd);
+                    ThreadCmd.comando("systeminfo | find \"Data de instalação original\"", "InstallDate", user, pwd);
+                }
+
+                systemInfo.Domain = Reader.InfoReader("Domain");
+                systemInfo.IP = Reader.InfoReader("IP");
+                systemInfo.OS = Reader.InfoReader("OS");
+                systemInfo.InstallDate = Reader.InfoReader("InstallDate");
+
+                ThreadCmd.comando("hostname", "Hostname", user, pwd);
+                systemInfo.Hostname = Reader.InfoReader("Hostname");
+                ThreadCmd.comando("whoami", "LastUser", user, pwd);
+                systemInfo.LastUserName = Reader.InfoReader("LastUser");
                 systemInfo.FirstSync = DateTime.Now;
+
+                #endregion
 
                 timer.Stop();
 

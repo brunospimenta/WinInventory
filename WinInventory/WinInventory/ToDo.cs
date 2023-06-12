@@ -10,13 +10,16 @@
 //
 //*******principal**********
 //
-//vincular corretamente para o model as string usando o Reader
+//vincular corretamente para o model as string usando o Reader **OK (OBS: futuramente sera mudado para a ideia localizada na ultima linha deste arquivo)
 //
 //tempoIndivual e tempo total
 //
 //  Ideia para o projeto
 //
 // incrementar aba para gerar os relatório [completo (que seria a função do botão Geral)/ cada Model(que seriam os botões que ja estão funcionando)] e a outra aba que seria para ler os relatórios e vincular aos models 
+// 
+//
+// 
 //
 //
 //
@@ -32,7 +35,4 @@
 //
 //
 //
-//
-//
-//
-//
+// na leitura abrir uma janela ou form inside com as informações lidas do Txt de forma separada da forma que esta atualmente(Atualmente só é gerado o txt e a leitura em si não esta fazendo nada)
