@@ -57,9 +57,12 @@ namespace WinInventory.Forms
                 }
 
                 GetPass();
+
+                Logger.CreateLog("Application initialized correctly", Enums.LogType.INFO, "applicationLog");
+
             } catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                Logger.CreateLog("Failed to initialized: " + ex.Message, Enums.LogType.ERROR, "applicationLog");
             }
             
         }
@@ -98,10 +101,13 @@ namespace WinInventory.Forms
 
                 timer.Stop();
 
-                geralExitTimer = timer.ElapsedMilliseconds / 1000;
+                geralExitTimer = timer.ElapsedMilliseconds ;
+
+                Logger.CreateLog("Geral report successfully created in " + geralExitTimer + "ms", Enums.LogType.SUCESS, "logReport");
+
             } catch (Exception ex) 
             {
-                MessageBox.Show("Error Creating Geral relatory" + ex.Message);
+                Logger.CreateLog("error creating geral report: " + ex.Message, Enums.LogType.ERROR, "logReport");
             }
             
         }
@@ -120,14 +126,19 @@ namespace WinInventory.Forms
 
                 #endregion
 
+                
+
                 timer.Stop();
 
                 individualExitTimer = 0;
-                individualExitTimer = timer.ElapsedMilliseconds / 1000;
-                geralExitTimer  += timer.ElapsedMilliseconds / 1000;
+                individualExitTimer = timer.ElapsedMilliseconds;
+                geralExitTimer  += timer.ElapsedMilliseconds;
+
+                Logger.CreateLog("applications report successfully created in " + individualExitTimer + "ms", Enums.LogType.SUCESS, "logReport");
+
             } catch (Exception ex )
             {
-                MessageBox.Show("Error Creating Apllications relatory" + ex.Message);
+                Logger.CreateLog("error creating applications report: " + ex.Message, Enums.LogType.ERROR, "logReport");
             }
             
 
@@ -153,11 +164,14 @@ namespace WinInventory.Forms
 
                 timer.Stop();
                 individualExitTimer = 0;
-                individualExitTimer = timer.ElapsedMilliseconds / 1000;
-                geralExitTimer += timer.ElapsedMilliseconds / 1000;
+                individualExitTimer = timer.ElapsedMilliseconds;
+                geralExitTimer += timer.ElapsedMilliseconds;
+
+                Logger.CreateLog("devices report successfully created in " + individualExitTimer + "ms", Enums.LogType.SUCESS, "logReport");
+
             } catch (Exception ex)
             {
-                MessageBox.Show("Error creating Devices relatory" + ex.Message);
+                Logger.CreateLog("error creating devices report: " + ex.Message, Enums.LogType.ERROR, "logReport");
             }
         }
 
@@ -177,16 +191,20 @@ namespace WinInventory.Forms
                 drivers.Firewall = Reader.InfoReader("Firewall");
                 ThreadCmd.comando("netsh winhttp show proxy", "Proxy", user, pwd);
                 drivers.Proxy = Reader.InfoReader("Proxy");
-                timer.Stop();
 
                 #endregion
 
+                timer.Stop();
+
                 individualExitTimer = 0;
-                individualExitTimer = timer.ElapsedMilliseconds / 1000;
-                geralExitTimer += timer.ElapsedMilliseconds / 1000;
+                individualExitTimer = timer.ElapsedMilliseconds;
+                geralExitTimer += timer.ElapsedMilliseconds ;
+
+                Logger.CreateLog("drivers report successfully created in " + individualExitTimer + "ms", Enums.LogType.SUCESS, "logReport");
+
             } catch (Exception ex ) 
             {
-                MessageBox.Show("Error creating Drivers relatory" + ex.Message);
+                Logger.CreateLog("error creating drivers report: " + ex.Message, Enums.LogType.ERROR, "logReport");
             }
             
 
@@ -232,11 +250,14 @@ namespace WinInventory.Forms
                 timer.Stop();
 
                 individualExitTimer = 0;
-                individualExitTimer = timer.ElapsedMilliseconds / 1000;
-                geralExitTimer += timer.ElapsedMilliseconds / 1000;
+                individualExitTimer = timer.ElapsedMilliseconds;
+                geralExitTimer += timer.ElapsedMilliseconds;
+
+                Logger.CreateLog("hardware report successfully created in " + individualExitTimer + "ms", Enums.LogType.SUCESS, "logReport");
+
             } catch (Exception ex)
             {
-                MessageBox.Show("Error creating Hardware relatory" + ex.Message);
+                Logger.CreateLog("error creating hardware report: " + ex.Message, Enums.LogType.ERROR, "logReport");
             }
             
         }
@@ -282,11 +303,14 @@ namespace WinInventory.Forms
                 timer.Stop();
 
                 individualExitTimer = 0;
-                individualExitTimer = timer.ElapsedMilliseconds / 1000;
-                geralExitTimer += timer.ElapsedMilliseconds / 1000;
+                individualExitTimer = timer.ElapsedMilliseconds;
+                geralExitTimer += timer.ElapsedMilliseconds;
+
+                Logger.CreateLog("SystemInfo report successfully created in " + individualExitTimer + "ms", Enums.LogType.SUCESS, "logReport");
+
             } catch (Exception ex)
             {
-                MessageBox.Show("Error creating System relatory" + ex.Message);
+                Logger.CreateLog("error creating SystemInfo report: " + ex.Message, Enums.LogType.ERROR, "logReport");
             }
             
         }

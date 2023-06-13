@@ -2,8 +2,8 @@
 //
 //2-incrementar o botao geral, que atualmente só esta pegando o Device_ID
 //
-//3-criar um metodo para criar logs do programa
-//
+//3-criar um metodo para criar logs do programa **OK 
+//    + implementar botoes **OK
 //4-criar o visual da aplicação
 //
 //5-apos td estiver funcionando com o cmd, estudar uma outra forma de obter as informações da Model (provavelmente fazer uma busca dentro dos registros do windows)

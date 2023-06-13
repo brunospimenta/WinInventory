@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace WinInventory.Utils
             bool infoExists = Directory.Exists(rootFolder + @"\infos\");
             bool colectedsExists = Directory.Exists(rootFolder + @"\colecteds\");
             bool jsonExists = Directory.Exists(rootFolder + @"\json\");
+            bool logsExists = Directory.Exists(rootFolder + @"\logs\");
 
             if (!infoExists)
                 Directory.CreateDirectory(rootFolder + @"\infos\");
@@ -21,6 +23,8 @@ namespace WinInventory.Utils
                 Directory.CreateDirectory(rootFolder + @"\colecteds\");
             if (!jsonExists)
                 Directory.CreateDirectory(rootFolder + @"\json\");
+            if (!logsExists)
+                Directory.CreateDirectory(rootFolder + @"\logs\");
         }
     }
 }
