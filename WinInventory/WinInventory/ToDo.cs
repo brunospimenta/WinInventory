@@ -12,7 +12,7 @@
 //
 //vincular corretamente para o model as string usando o Reader **OK (OBS: futuramente sera mudado para a ideia localizada na ultima linha deste arquivo)
 //
-//tempoIndivual e tempo total
+//tempoIndivual e tempo total **OK
 //
 //  Ideia para o projeto
 //

@@ -124,6 +124,7 @@ namespace WinInventory.Forms
 
                 individualExitTimer = 0;
                 individualExitTimer = timer.ElapsedMilliseconds / 1000;
+                geralExitTimer  += timer.ElapsedMilliseconds / 1000;
             } catch (Exception ex )
             {
                 MessageBox.Show("Error Creating Apllications relatory" + ex.Message);
@@ -153,6 +154,7 @@ namespace WinInventory.Forms
                 timer.Stop();
                 individualExitTimer = 0;
                 individualExitTimer = timer.ElapsedMilliseconds / 1000;
+                geralExitTimer += timer.ElapsedMilliseconds / 1000;
             } catch (Exception ex)
             {
                 MessageBox.Show("Error creating Devices relatory" + ex.Message);
@@ -179,7 +181,9 @@ namespace WinInventory.Forms
 
                 #endregion
 
+                individualExitTimer = 0;
                 individualExitTimer = timer.ElapsedMilliseconds / 1000;
+                geralExitTimer += timer.ElapsedMilliseconds / 1000;
             } catch (Exception ex ) 
             {
                 MessageBox.Show("Error creating Drivers relatory" + ex.Message);
@@ -229,6 +233,7 @@ namespace WinInventory.Forms
 
                 individualExitTimer = 0;
                 individualExitTimer = timer.ElapsedMilliseconds / 1000;
+                geralExitTimer += timer.ElapsedMilliseconds / 1000;
             } catch (Exception ex)
             {
                 MessageBox.Show("Error creating Hardware relatory" + ex.Message);
@@ -278,6 +283,7 @@ namespace WinInventory.Forms
 
                 individualExitTimer = 0;
                 individualExitTimer = timer.ElapsedMilliseconds / 1000;
+                geralExitTimer += timer.ElapsedMilliseconds / 1000;
             } catch (Exception ex)
             {
                 MessageBox.Show("Error creating System relatory" + ex.Message);
