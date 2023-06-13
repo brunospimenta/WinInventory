@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
+﻿using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
-using System.Reflection;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using WinInventory.Models;
 using WinInventory.Models.OneByOne;
 using WinInventory.Utils;
@@ -67,7 +57,7 @@ namespace WinInventory.Forms
             
         }
 
-        #region methods
+        #region configs methods
         private SecureString GetPass()
         {
             for(int i = 0; i< pwdLength - 1; i++) 
@@ -89,30 +79,9 @@ namespace WinInventory.Forms
 
         #endregion
 
-        #region buttons
-        private void BtnGeral_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Stopwatch timer = new Stopwatch();
-                timer.Start();
+        #region buttons methods
 
-                geral.DeviceId = ThreadCmd.comando("wmic os get serialnumber", "Device_ID", user, pwd);
-
-                timer.Stop();
-
-                geralExitTimer = timer.ElapsedMilliseconds ;
-
-                Logger.CreateLog("Geral report successfully created in " + geralExitTimer + "ms", Enums.LogType.SUCESS, "logReport");
-
-            } catch (Exception ex) 
-            {
-                Logger.CreateLog("error creating geral report: " + ex.Message, Enums.LogType.ERROR, "logReport");
-            }
-            
-        }
-
-        private void BtnApplications_Click(object sender, EventArgs e)
+        private void getApplications() 
         {
             try
             {
@@ -126,25 +95,24 @@ namespace WinInventory.Forms
 
                 #endregion
 
-                
+
 
                 timer.Stop();
 
                 individualExitTimer = 0;
                 individualExitTimer = timer.ElapsedMilliseconds;
-                geralExitTimer  += timer.ElapsedMilliseconds;
+                geralExitTimer += timer.ElapsedMilliseconds;
 
                 Logger.CreateLog("applications report successfully created in " + individualExitTimer + "ms", Enums.LogType.SUCESS, "logReport");
 
-            } catch (Exception ex )
+            }
+            catch (Exception ex)
             {
                 Logger.CreateLog("error creating applications report: " + ex.Message, Enums.LogType.ERROR, "logReport");
             }
-            
-
         }
 
-        private void BtnDevices_Click(object sender, EventArgs e)
+        private void getDevices()
         {
             try
             {
@@ -169,13 +137,14 @@ namespace WinInventory.Forms
 
                 Logger.CreateLog("devices report successfully created in " + individualExitTimer + "ms", Enums.LogType.SUCESS, "logReport");
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Logger.CreateLog("error creating devices report: " + ex.Message, Enums.LogType.ERROR, "logReport");
             }
         }
 
-        private void BtnDrivers_Click(object sender, EventArgs e)
+        private void getDrivers()
         {
             try
             {
@@ -198,18 +167,18 @@ namespace WinInventory.Forms
 
                 individualExitTimer = 0;
                 individualExitTimer = timer.ElapsedMilliseconds;
-                geralExitTimer += timer.ElapsedMilliseconds ;
+                geralExitTimer += timer.ElapsedMilliseconds;
 
                 Logger.CreateLog("drivers report successfully created in " + individualExitTimer + "ms", Enums.LogType.SUCESS, "logReport");
 
-            } catch (Exception ex ) 
+            }
+            catch (Exception ex)
             {
                 Logger.CreateLog("error creating drivers report: " + ex.Message, Enums.LogType.ERROR, "logReport");
             }
-            
-
         }
-        private void BtnHardware_Click(object sender, EventArgs e)
+
+        private void getHardware()
         {
             try
             {
@@ -255,14 +224,14 @@ namespace WinInventory.Forms
 
                 Logger.CreateLog("hardware report successfully created in " + individualExitTimer + "ms", Enums.LogType.SUCESS, "logReport");
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Logger.CreateLog("error creating hardware report: " + ex.Message, Enums.LogType.ERROR, "logReport");
             }
-            
         }
 
-        private void BtnSystem_Click(object sender, EventArgs e)
+        private void getSystemInfo()
         {
             try
             {
@@ -308,11 +277,76 @@ namespace WinInventory.Forms
 
                 Logger.CreateLog("SystemInfo report successfully created in " + individualExitTimer + "ms", Enums.LogType.SUCESS, "logReport");
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Logger.CreateLog("error creating SystemInfo report: " + ex.Message, Enums.LogType.ERROR, "logReport");
             }
+        }
+
+        #endregion
+
+        #region buttons
+        private void BtnGeral_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Stopwatch timer = new Stopwatch();
+                timer.Start();
+
+                getApplications();
+                getDevices();
+                getDrivers();
+                getHardware();
+                getSystemInfo();
+
+                #region (Devices) escrita dos txts e leitura/vinculo ao Model
+
+                ThreadCmd.comando("wmic os get serialnumber", "Device_ID", user, pwd);
+                geral.DeviceId = Reader.InfoReader("Device_ID");
+                geral.SystemInfo = systemInfo;
+                geral.Devices = devices;
+                geral.Hardware = hardware;
+                geral.Drivers = drivers;
+                geral.Applications = apps;
+
+                #endregion
+
+                timer.Stop();
+
+                geralExitTimer = timer.ElapsedMilliseconds;
+
+                Logger.CreateLog("Geral report successfully created in " + geralExitTimer + "ms", Enums.LogType.SUCESS, "logReport");
+
+            } catch (Exception ex) 
+            {
+                Logger.CreateLog("error creating geral report: " + ex.Message, Enums.LogType.ERROR, "logReport");
+            }
             
+        }
+
+        private void BtnApplications_Click(object sender, EventArgs e)
+        {          
+            getApplications();
+        }
+
+        private void BtnDevices_Click(object sender, EventArgs e)
+        {
+            getDevices();
+        }
+
+        private void BtnDrivers_Click(object sender, EventArgs e)
+        {
+            getDrivers();
+        }
+        private void BtnHardware_Click(object sender, EventArgs e)
+        {
+            getHardware();
+        }
+
+        private void BtnSystem_Click(object sender, EventArgs e)
+        {
+            getSystemInfo();            
         }
 
         private void BtnTeste_Click(object sender, EventArgs e)
