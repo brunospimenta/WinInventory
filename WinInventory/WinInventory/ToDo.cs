@@ -1,6 +1,6 @@
 ﻿//1-metodo para identificar o idioma do SO para alguns metodos do threadCMD **OK
 //
-//2-incrementar o botao geral, que atualmente só esta pegando o Device_ID
+//2-incrementar o botao geral, que atualmente só esta pegando o Device_ID **OK
 //
 //3-criar um metodo para criar logs do programa **OK 
 //    + implementar botoes **OK
