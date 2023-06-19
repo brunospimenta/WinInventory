@@ -35,10 +35,13 @@
             this.BtnHardware = new System.Windows.Forms.Button();
             this.BtnSystem = new System.Windows.Forms.Button();
             this.BtnTeste = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BtnGeral
             // 
+            this.BtnGeral.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.BtnGeral.Location = new System.Drawing.Point(126, 47);
             this.BtnGeral.Name = "BtnGeral";
             this.BtnGeral.Size = new System.Drawing.Size(103, 46);
@@ -49,6 +52,7 @@
             // 
             // BtnApplications
             // 
+            this.BtnApplications.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.BtnApplications.Location = new System.Drawing.Point(449, 47);
             this.BtnApplications.Name = "BtnApplications";
             this.BtnApplications.Size = new System.Drawing.Size(103, 46);
@@ -59,6 +63,11 @@
             // 
             // BtnDevices
             // 
+            this.BtnDevices.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BtnDevices.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnDevices.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.BtnDevices.FlatAppearance.CheckedBackColor = System.Drawing.Color.Gray;
+            this.BtnDevices.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.BtnDevices.Location = new System.Drawing.Point(126, 110);
             this.BtnDevices.Name = "BtnDevices";
             this.BtnDevices.Size = new System.Drawing.Size(103, 46);
@@ -69,6 +78,11 @@
             // 
             // BtnDrivers
             // 
+            this.BtnDrivers.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BtnDrivers.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnDrivers.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.BtnDrivers.FlatAppearance.CheckedBackColor = System.Drawing.Color.Gray;
+            this.BtnDrivers.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.BtnDrivers.Location = new System.Drawing.Point(449, 110);
             this.BtnDrivers.Name = "BtnDrivers";
             this.BtnDrivers.Size = new System.Drawing.Size(103, 46);
@@ -79,6 +93,11 @@
             // 
             // BtnHardware
             // 
+            this.BtnHardware.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BtnHardware.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnHardware.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.BtnHardware.FlatAppearance.CheckedBackColor = System.Drawing.Color.Gray;
+            this.BtnHardware.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.BtnHardware.Location = new System.Drawing.Point(126, 182);
             this.BtnHardware.Name = "BtnHardware";
             this.BtnHardware.Size = new System.Drawing.Size(103, 46);
@@ -89,6 +108,11 @@
             // 
             // BtnSystem
             // 
+            this.BtnSystem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BtnSystem.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnSystem.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.BtnSystem.FlatAppearance.CheckedBackColor = System.Drawing.Color.Gray;
+            this.BtnSystem.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.BtnSystem.Location = new System.Drawing.Point(449, 182);
             this.BtnSystem.Name = "BtnSystem";
             this.BtnSystem.Size = new System.Drawing.Size(103, 46);
@@ -99,13 +123,44 @@
             // 
             // BtnTeste
             // 
+            this.BtnTeste.BackColor = System.Drawing.Color.Transparent;
             this.BtnTeste.Location = new System.Drawing.Point(280, 264);
             this.BtnTeste.Name = "BtnTeste";
             this.BtnTeste.Size = new System.Drawing.Size(103, 46);
             this.BtnTeste.TabIndex = 6;
             this.BtnTeste.Text = "Tests";
-            this.BtnTeste.UseVisualStyleBackColor = true;
+            this.BtnTeste.UseVisualStyleBackColor = false;
             this.BtnTeste.Click += new System.EventHandler(this.BtnTeste_Click);
+            // 
+            // button1
+            // 
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button1.FlatAppearance.CheckedBackColor = System.Drawing.Color.Gray;
+            this.button1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button1.Location = new System.Drawing.Point(126, 47);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(103, 46);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Geral";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.BtnGeral_Click);
+            // 
+            // button2
+            // 
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button2.FlatAppearance.CheckedBackColor = System.Drawing.Color.Gray;
+            this.button2.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button2.Location = new System.Drawing.Point(449, 47);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(103, 46);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "Applications";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.BtnApplications_Click);
             // 
             // ReportForm
             // 
@@ -117,10 +172,13 @@
             this.Controls.Add(this.BtnHardware);
             this.Controls.Add(this.BtnDrivers);
             this.Controls.Add(this.BtnDevices);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.BtnApplications);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.BtnGeral);
             this.Name = "ReportForm";
             this.Text = "Report Generator";
+            this.Load += new System.EventHandler(this.ReportForm_Load);
             this.ResumeLayout(false);
 
         }
@@ -134,5 +192,7 @@
         private Button BtnHardware;
         private Button BtnSystem;
         private Button BtnTeste;
+        private Button button1;
+        private Button button2;
     }
 }

@@ -347,5 +347,10 @@ namespace WinInventory.Forms
             MessageBox.Show(GetLocale());
         }
         #endregion
+
+        private void ReportForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

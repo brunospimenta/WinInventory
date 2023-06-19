@@ -7,8 +7,6 @@ namespace WinInventory.Forms
         #region Global var's
 
         private Form currentChildForm;
-        private IconButton currentBtn;
-        private Panel leftBorderBtn;
 
         #endregion
 

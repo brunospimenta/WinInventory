@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InitialForm));
             this.childrenFormArea = new System.Windows.Forms.Panel();
             this.childFormLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -45,18 +46,21 @@
             // 
             // childFormLabel
             // 
-            this.childFormLabel.AutoSize = true;
-            this.childFormLabel.Location = new System.Drawing.Point(133, 19);
+            this.childFormLabel.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.childFormLabel.Location = new System.Drawing.Point(121, 9);
             this.childFormLabel.Name = "childFormLabel";
-            this.childFormLabel.Size = new System.Drawing.Size(38, 15);
+            this.childFormLabel.Size = new System.Drawing.Size(241, 35);
             this.childFormLabel.TabIndex = 0;
             this.childFormLabel.Text = "label1";
+            this.childFormLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(1, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(114, 54);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
@@ -72,7 +76,7 @@
             this.ReportBtn.Location = new System.Drawing.Point(0, 128);
             this.ReportBtn.Name = "ReportBtn";
             this.ReportBtn.Size = new System.Drawing.Size(115, 49);
-            this.ReportBtn.TabIndex = 2;
+            this.ReportBtn.TabIndex = 0;
             this.ReportBtn.Text = "Report Generator";
             this.ReportBtn.UseMnemonic = false;
             this.ReportBtn.UseVisualStyleBackColor = false;
@@ -90,7 +94,7 @@
             this.ViewerBtn.Location = new System.Drawing.Point(1, 183);
             this.ViewerBtn.Name = "ViewerBtn";
             this.ViewerBtn.Size = new System.Drawing.Size(114, 49);
-            this.ViewerBtn.TabIndex = 3;
+            this.ViewerBtn.TabIndex = 1;
             this.ViewerBtn.Text = "View Report";
             this.ViewerBtn.UseMnemonic = false;
             this.ViewerBtn.UseVisualStyleBackColor = false;
@@ -106,11 +110,11 @@
             this.Controls.Add(this.ReportBtn);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.childrenFormArea);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "InitialForm";
-            this.Text = "InitialForm";
+            this.Text = "Windows Inventory";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
