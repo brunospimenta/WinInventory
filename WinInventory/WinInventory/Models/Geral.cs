@@ -10,8 +10,6 @@ namespace WinInventory.Models
     public class Geral
     {
         public string DeviceId { get; set; }
-        public float ExecutionTime { get; set; }
-
         public Drivers Drivers { get; set; }
         public Hardware Hardware { get; set; }
         public Applications Applications { get; set; }
@@ -20,7 +18,7 @@ namespace WinInventory.Models
 
         public override string ToString()
         {
-            return "DeviceID=" + DeviceId + ", Timer=" + ExecutionTime + ", OperationalSystemInfo=" + SystemInfo + ", Hardware=" + Hardware + ", Devices=" + Devices +
+            return "DeviceID=" + DeviceId + ", OperationalSystemInfo=" + SystemInfo + ", Hardware=" + Hardware + ", Devices=" + Devices +
                 ", DriversAndOthers=" + Drivers + ", Applications=" + Applications;
         }
     }

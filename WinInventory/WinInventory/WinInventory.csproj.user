@@ -4,7 +4,13 @@
     <Compile Update="Forms\CreateUser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\HomeForm.cs">
+    <Compile Update="Forms\ReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\InitialForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ViewerForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
